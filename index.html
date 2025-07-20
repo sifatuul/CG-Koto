@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CG Koto...?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #0078ff;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #0078ff;
+            outline: none;
+        }
+        button {
+            background: #0078ff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #005fcc;
+        }
+        .output {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .course-list {
+            margin-bottom: 15px;
+        }
+        .course-item {
+            display: flex;
+            gap: 10px;
+        }
+        .course-item input {
+            flex: 1;
+        }
+        .add-course-btn {
+            background: #28a745;
+            margin-top: 10px;
+        }
+        .add-course-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CG Koto...?</h1>
+        <div id="courses" class="course-list">
+            <div class="course-item">
+                <input type="text" placeholder="Course Name" class="course-name" />
+                <input type="number" placeholder="Credit Hours" class="course-credit" min="1" />
+                <input type="number" placeholder="Grade (e.g., 3.5, 4.0)" class="course-grade" step="0.25" min="0" max="4" />
+            </div>
+        </div>
+        <button class="add-course-btn" onclick="addCourse()">+ Add Course</button>
+        <button onclick="calculateCGPA()">Calculate CGPA</button>
+
+        <div id="output" class="output" style="display:none;"></div>
+    </div>
+
+    <script>
+        function addCourse() {
+            const courseList = document.getElementById('courses');
+            const newCourse = document.createElement('div');
+            newCourse.className = 'course-item';
+            newCourse.innerHTML = `
+                <input type="text" placeholder="Course Name" class="course-name" />
+                <input type="number" placeholder="Credit Hours" class="course-credit" min="1" />
+                <input type="number" placeholder="Grade (e.g., 3.5)" class="course-grade" step="0.01" min="0" max="4" />
+            `;
+            courseList.appendChild(newCourse);
+        }
+
+        function calculateCGPA() {
+            const names = document.querySelectorAll('.course-name');
+            const credits = document.querySelectorAll('.course-credit');
+            const grades = document.querySelectorAll('.course-grade');
+
+            let totalWeighted = 0;
+            let totalCredits = 0;
+            let bestImpact = -1;
+            let bestCourse = '';
+            let currentCGPA = 0;
+
+            // Calculate current CGPA
+            for (let i = 0; i < names.length; i++) {
+                const credit = parseFloat(credits[i].value);
+                const grade = parseFloat(grades[i].value);
+                if (isNaN(credit) || isNaN(grade) || credit <= 0 || grade < 0 || grade > 4) {
+                    alert('Please enter valid credit hours and grades for all courses.');
+                    return;
+                }
+                totalWeighted += grade * credit;
+                totalCredits += credit;
+            }
+
+            currentCGPA = totalWeighted / totalCredits;
+
+            // Find the course which improves CGPA most
+            for (let i = 0; i < names.length; i++) {
+                const credit = parseFloat(credits[i].value);
+                const grade = parseFloat(grades[i].value);
+                let improvement = 0.2; // Simulate 0.2 boost
+                if (grade + improvement > 4) improvement = 4 - grade; // Cap at 4.0
+                const newTotalWeighted = totalWeighted - (grade * credit) + ((grade + improvement) * credit);
+                const newCGPA = newTotalWeighted / totalCredits;
+                const impact = newCGPA - currentCGPA;
+                if (impact > bestImpact) {
+                    bestImpact = impact;
+                    bestCourse = names[i].value || `Course ${i + 1}`;
+                }
+            }
+
+            // Display results
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            output.innerHTML = `
+                <strong>Your CGPA:</strong> ${currentCGPA.toFixed(2)}<br/>
+                <strong>Suggestion:</strong> Improving "<em>${bestCourse}</em>" by +0.2 could raise your CGPA to <strong>${(currentCGPA + bestImpact).toFixed(2)}</strong>.
+            `;
+        }
+    </script>
+</body>
+</html>
