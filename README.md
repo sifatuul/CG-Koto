@@ -25,8 +25,8 @@ A modern CGPA calculator with credit-hour support and smart suggestions to help 
 
 | Main UI                     | Result with Suggestion          |
 |-----------------------------|-----------------------------------|
-|  <img width="192.0" height="108.0" alt="image" src="https://github.com/user-attachments/assets/8b08af78-7b00-4c2b-8b6e-30be0a989d3a" />
-    | <img width="192.0" height="108.0" alt="image" src="https://github.com/user-attachments/assets/5e065948-33a4-41c1-9ad8-dc9dca37cfb6" />
+|  <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8b08af78-7b00-4c2b-8b6e-30be0a989d3a" />
+    | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e129aa5c-3c4d-46ad-91da-7a2624ad24af" />
 
 
 
