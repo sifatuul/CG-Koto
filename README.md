@@ -17,7 +17,7 @@ A modern CGPA calculator with credit-hour support and smart suggestions to help 
 
 ## 🖥 Demo
 
-👉 [**Try CG Koto Live**](https://Sifatuul.github.io/cg-koto) *(replace with your live link if hosted)*
+👉 [**Try CG Koto Live**](https://sifatuul.github.io/CG-Koto/) *(replace with your live link if hosted)*
 
 ---
 
@@ -25,7 +25,8 @@ A modern CGPA calculator with credit-hour support and smart suggestions to help 
 
 | Main UI                     | Result with Suggestion          |
 |-----------------------------|-----------------------------------|
-| ![Main UI](assets/main.png) | ![Result](assets/result.png)     |
+|  | ![Result](assets/result.png)     | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/96479108-f977-4720-8fa8-6a9ccd6231a3" />
+
 
 ---
 
